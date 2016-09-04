@@ -1,0 +1,4 @@
+# Запрет выдачи листинга пустого каталога
+Options -Indexes
+
+DirectoryIndex /admin/login.php
