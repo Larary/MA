@@ -13,9 +13,9 @@ $title='Реєстрація користувача';
 include ('../include/header.php'); ?>
 <!-- Подключаем заголовок и меню-->
 
-    <div id="content">
-        <h3>Адміністрування</h3>
-        <h2>Видалення користувача</h2>
+<div id="content">
+    <h3>Адміністрування</h3>
+    <h2>Видалення користувача</h2>
 
     <form id="Form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 
@@ -55,5 +55,6 @@ mysqli_close($dbc);
 
         <input class="button" type="submit" name="submit" value="Видалити" />
     </form>
+</div>
 </body>
 </html>

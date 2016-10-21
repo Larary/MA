@@ -28,10 +28,10 @@ if (!isset($_SESSION['user_id'])) {
                 $_SESSION['login'] = $row['login'];
                 $_SESSION['fio'] = $row['fio'];
                 $_SESSION['role_id'] = $row['role_id'];
-                setcookie('user_id', $row['user_id'], time() + (60 * 60 * 24 * 30));    // expires in 30 days
-                setcookie('login', $row['login'], time() + (60 * 60 * 24 * 30));  // expires in 30 days
-                setcookie('fio', $row['fio'], time() + (60 * 60 * 24 * 30));
-                setcookie('role_id', $row['role_id'], time() + (60 * 60 * 24 * 30));
+                setcookie('user_id', $row['user_id']);    
+                setcookie('login', $row['login']);  
+                setcookie('fio', $row['fio']);
+                setcookie('role_id', $row['role_id']);
                 $home_url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/index.php';
                 header('Location: ' . $home_url);
             }

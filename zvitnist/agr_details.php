@@ -3,54 +3,54 @@ require_once('../include/startsession.php');
 if (!isset($_SESSION['user_id'])) {
     echo '<p class="login">Будь-ласка, <a href="../admin/login.php">увійдіть</a> , для використання даної сторінки.</p>';
     exit();
-  }
+}
 if ($_SESSION['role_id']==3) {
     echo '<p class="login">Ви не маєте прав для використання даної сторінки.</p></br>
 	<a href="../admin/index.php">На головну сторінку.</a>';
     exit();
-  } 
+} 
 $title='Інформація щодо договору';
-	  include ('../include/header.php');
+include ('../include/header.php');
 
 if (isset($_GET['rnz'])){
-	$rnz = $_GET['rnz'];}
-	else echo 'Помилка при виклику інформації';
+    $rnz = $_GET['rnz'];
+}
+else echo 'Помилка при виклику інформації';
  
 echo '<h2>Інформація щодо договору № ' .$rnz.'</h2>';	  
 
 require_once('../include/dbconnect.php'); //Подключаем файл с параметрами подключения к БД
 $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 mysqli_query($dbc, 'SET NAMES UTF8');	 
+
+$agr=array();
+
 $query1 = "SELECT * FROM r_reestr1 WHERE rnz='$rnz'";
-    $result1 = mysqli_query($dbc, $query1)
-      or die('Error querying reestr1.');
-	$agr=array();  
-	while ($row = mysqli_fetch_array($result1)){
-		array_push($agr,$row);}
-		
+$result1 = mysqli_query($dbc, $query1) or die('Error querying reestr1.');
+while ($row = mysqli_fetch_array($result1)){
+    array_push($agr,$row);
+}	
 $query2 = "SELECT * FROM r_reestr2 WHERE rnz='$rnz'";
-    $result2 = mysqli_query($dbc, $query2)
-      or die('Error querying reestr2.'); 
-	while ($row = mysqli_fetch_array($result2)){
-		array_push($agr,$row);}		
-
+$result2 = mysqli_query($dbc, $query2) or die('Error querying reestr2.'); 
+while ($row = mysqli_fetch_array($result2)){
+    array_push($agr,$row);
+                
+}		
 $query3 = "SELECT * FROM vid_rabot INNER JOIN r_reestr1 ON vid_rabot.vid_rabot_kratko=r_reestr1.vid_rabot WHERE rnz='$rnz'";
-    $result3 = mysqli_query($dbc, $query3)
-      or die('Error querying vid_rabot.'); 
-	while ($row = mysqli_fetch_array($result3)){
-		array_push($agr,$row);}		
-
+$result3 = mysqli_query($dbc, $query3) or die('Error querying vid_rabot.'); 
+while ($row = mysqli_fetch_array($result3)){
+    array_push($agr,$row);    
+}		
 $query4 = "SELECT fio_kratko as fio_manager FROM manager INNER JOIN r_reestr1 ON manager.pp=r_reestr1.manager WHERE rnz='$rnz'";
-    $result4 = mysqli_query($dbc, $query4)
-      or die('Error querying manager1.'); 
-	while ($row = mysqli_fetch_array($result4)){
-		array_push($agr,$row);}
-
+$result4 = mysqli_query($dbc, $query4) or die('Error querying manager1.'); 
+while ($row = mysqli_fetch_array($result4)){
+    array_push($agr,$row);
+}
 $query5 = "SELECT fio_kratko as fio_msdelki FROM manager INNER JOIN r_reestr1 ON manager.pp=r_reestr1.manager_sdelki WHERE rnz='$rnz'";
-    $result5 = mysqli_query($dbc, $query5)
-      or die('Error querying manager2.'); 
-	while ($row = mysqli_fetch_array($result5)){
-		array_push($agr,$row);}
+$result5 = mysqli_query($dbc, $query5) or die('Error querying manager2.'); 
+while ($row = mysqli_fetch_array($result5)){
+    array_push($agr,$row);
+}
 
 $table = "<table>";
 $table .= "<tr><td>Номер договору</td><td>".$agr[0]['rnz']."</td></tr>";

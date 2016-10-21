@@ -1,8 +1,7 @@
 <?php
 require_once("../dompdf/dompdf_config.inc.php");
-/* if (isset ($_GET['pdf'])){ */ 
-$pdf=$_POST['pdf'];/* }
-	else echo 'Error'; */
+
+$pdf=$_POST['pdf'];
 
 $html =
 '<html><meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -10,8 +9,6 @@ $html =
 <body>'.
 $pdf.
 '</body></html>';
-
-
 
 $dompdf = new DOMPDF();
 $dompdf->load_html($html);

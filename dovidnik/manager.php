@@ -13,10 +13,10 @@ $title='Менеджери';
 include ('../include/header.php'); ?>
 <!-- Подключаем заголовок и меню-->
 
-    <div id="content">
-        <h3>Довідники</h3>
-        <h2>Менеджери</h2>
-        <h5>Інформація, обов'язкова для заповнення, позначена *</h5>
+<div id="content">
+    <h3>Довідники</h3>
+    <h2>Менеджери</h2>
+        
 <?php
 require_once('../include/dbconnect.php'); //Подключаем файл с параметрами подключения к БД
 if (!isset($_POST['submit'])) { //Если ОК еще не нажимали и данные не отправляли
@@ -43,8 +43,7 @@ else {
 }
 
 if (!$output_form){
-    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
-    or die('Error connecting to MySQL server.');
+    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) or die('Error connecting to MySQL server.');
     mysqli_query($dbc, 'SET NAMES UTF8');
 
     $fio_full = mysqli_real_escape_string($dbc, $fio_full);
@@ -59,7 +58,7 @@ if (!$output_form){
 
     $sql = "SELECT * FROM manager order by pp desc limit 1"; 
     //Вывод подтверждающей строки об успешном внесении данных в табличной форме
-    $result = mysqli_query($dbc, $sql)  or die(mysql_error());
+    $result = mysqli_query($dbc, $sql) or die(mysql_error());
     $table = "<table><tr><th>ПІБ менеджера повністю</th><th>ПІБ менеджера скорочено</th><th>Примітки</th></tr>";
 
     while ($row = mysqli_fetch_array($result)){//Формирование данных таблицы
@@ -77,35 +76,34 @@ if (!$output_form){
 
 if ($output_form) { //Если проверочная переменная = true, выводится форма для заполнения
 ?>
-
-        <form id="Form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <div>
-                <div class="wrapper">
-                    <span>ПІБ менеджера повністю: *</span>
-                    <div class="bg">
-                        <input type="text" name="fio_full" class="input" value="<?php echo $fio_full; ?>"/>
-                    </div>
+    <h5>Інформація, обов'язкова для заповнення, позначена *</h5>
+    <form id="Form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <div>
+            <div class="wrapper">
+                <span>ПІБ менеджера повністю: *</span>
+                <div class="bg">
+                    <input type="text" name="fio_full" class="input" value="<?php echo $fio_full; ?>"/>
                 </div>
-                <div class="wrapper">
-                    <span>ПІБ менеджера скорочено: *</span>
-                    <div class="bg">
-                        <input type="text" name="fio_kratko" class="input" value="<?php echo $fio_kratko; ?>"/>
-                    </div>
-                </div>
-                <div class="textarea_box">
-                    <span>Примітки:</span>
-                    <div class="bg">
-                        <textarea name="etc" cols="52" rows="5" value="<?php echo $etc; ?>"></textarea>
-                    </div>
-                </div>
-                <input class="button" type="submit" value="OK" name="submit" /> 
             </div>
-        </form>
+            <div class="wrapper">
+                <span>ПІБ менеджера скорочено: *</span>
+                <div class="bg">
+                    <input type="text" name="fio_kratko" class="input" value="<?php echo $fio_kratko; ?>"/>
+                </div>
+            </div>
+            <div class="textarea_box">
+                <span>Примітки:</span>
+                <div class="bg">
+                    <textarea name="etc" cols="52" rows="5" value="<?php echo $etc; ?>"></textarea>
+                </div>
+            </div>
+            <input class="button" type="submit" value="OK" name="submit" /> 
+        </div>
+    </form>
 
 <?php
 }
 ?>
-    </div>
 </div>
 </body>
 </html>
